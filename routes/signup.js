@@ -41,9 +41,17 @@ console.log('333333')
         if (password !== repassword) {
             throw new Error('两次输入密码不一致');
         }
+        console.log('end');
     } catch (e) {
+        console.log(req.files.avatar.path)
         // 注册失败，异步删除上传的头像
-        fs.unlink(req.files.avatar.path);
+        //fs.unlink(req.files.avatar.path);
+        fs.unlink(req.files.avatar.path, function(err){
+            if(err){
+                throw err;
+            }
+            console.log('文件:删除成功！');
+        })
         req.flash('error', e.message);
         return res.redirect('/signup');
     }
