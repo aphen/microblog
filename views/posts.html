@@ -1,5 +1,43 @@
 <% include header.html %>
-<% posts.forEach(function (post) { %>
-<% include('components/post-content.html', { post: post }) %>
+<% posts.forEach(function (post, index) { %>
+
+<div class="post-content">
+    <div class="ui grid">
+        <div class="four wide column">111111
+            <a class="avatar avatar-link"
+               href="/posts?author=<%= post[index].author._id %>"
+               data-title="<%= post[index].author.name %> | <%= ({m: '男', f: '女', x: '保密'})[post[index].author.gender] %>"
+               data-content="<%= post[index].author.bio %>">
+                <img class="avatar" src="/img/<%= post[index].author.avatar %>">
+            </a>
+        </div>
+
+        <div class="eight wide column">
+            <div class="ui segment">
+                <h3><a href="/posts/<%= post[index]._id %>"><%= post[index].title %></a></h3>
+                <pre><%- post[index].content %></pre>
+                <div>
+                    <span class="tag"><%= post[index].created_at %></span>
+                    <span class="tag right">
+            <span>浏览(<%= post[index].pv || 0 %>)</span>
+            <span>留言(<%= post[index].commentsCount || 0 %>)</span>
+
+            <% if (user && post[index].author._id && user._id.toString() === post[index].author._id.toString()) { %>
+              <div class="ui inline dropdown">
+                <div class="text"></div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <div class="item"><a href="/posts/<%= post[index]._id %>/edit">编辑</a></div>
+                  <div class="item"><a href="/posts/<%= post[index]._id %>/remove">删除</a></div>
+                </div>
+              </div>
+            <% } %>
+
+          </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <% }) %>
 <% include footer.html %>

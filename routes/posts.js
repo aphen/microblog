@@ -6,10 +6,13 @@ const checkLogin = require('../middlewares/check').checkLogin;
 //Get /posts 所有用户或特定用户的文章页
 //eg: GET /posts/?author=xxx
 router.get('/', (req, res, next) => {
+
     //res.render('posts');
     const author = req.query.author;
+    console.log(req.query)
     postModel.getPosts(author)
         .then((posts)=>{
+            //console.log(posts);
             res.render('posts', {
                 posts: posts
             });
@@ -46,6 +49,7 @@ router.post('/create', checkLogin, (req, res, next)=>{
 
     postModel.create(post)
         .then((result) => {
+            console.log(result)
             // 此 post 是插入 mongodb 后的值，包含 _id
             post = result.ops[0];
             req.flash('success', '发表成功');
