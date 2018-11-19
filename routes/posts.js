@@ -54,7 +54,7 @@ router.post('/create', checkLogin, (req, res, next)=>{
             post = result.ops[0];
             req.flash('success', '发表成功');
             //发表成功后跳动到该文章页
-            res.redirect(`/post/${post._id}`);
+            res.redirect(`/posts/${post._id}`);
         });
 });
 
@@ -87,17 +87,88 @@ router.get('/:postId', checkLogin, (req, res, next) => {
 
 //Get /posts/:postId/edit 更新文章页
 router.get('/:postId/edit', checkLogin, (req, res, next) => {
-    res.send('更新文章页');
+    //res.send('更新文章页');
+    const postId = req.params.postId;
+    const auther = req.session.user._id;
+
+    postModel.getRawPostById(postId)
+        .then((post)=>{
+            if(!post){
+                throw new Error('该文章不存在');
+            }
+            console.log(post);
+            if(auther.toString()!==post.author._id.toString()){
+                throw new Error('权限不足');
+            }
+            res.render('edit', {
+                post: post
+            });
+        })
+        .catch(next);
 });
 
 //Post /posts/:postId/edit 更新文章
 router.post('/:postId/edit', checkLogin, (req, res, next) => {
-    res.send('更新文章');
+    //res.send('更新文章');
+    const postId = req.params.postId;
+    const auther = req.session.user._id;
+    const title = req.fields.title;
+    const content = req.fields.content;
+
+    //校验参数
+    try{
+        if(!title.length){
+            throw new Error('请填写标题');
+        }
+        if(!content.length){
+            throw new Error('请填写内容');
+        }
+    }catch(e){
+        req.flash('error', e.message);
+        return res.redirect('back');
+    }
+
+    postModel.getRawPostById(postId)
+        .then((post)=>{
+            if(!post){
+                throw new Error('文章不存在');
+            }
+            if(auther.toString()!==post.auther._id.toString()){
+                throw new Error('没有权限');
+            }
+
+            postModel.updatePostById(postId, {title: title, content:content})
+                .then(()=>{
+                    req.flash('success', '编辑文章成功');
+                    //编辑成功后跳转到上一页
+                    res.redirect(`/posts/${postId}`);
+                }).catch(next);
+        });
 });
 
 //Get /posts/:postId/remove 删除文章
 router.get('/:postId/remove', checkLogin, (req, res, next) => {
-    res.send('删除文章');
+    //res.send('删除文章');
+    const postId = req.params.postId;
+    const auther = req.session.user._id;
+
+    postModel.getRawPostById(postId)
+        .then((post)=>{
+            if(!post){
+                throw new Error('文章不存在');
+            }
+            if(auther.toString()!==post.auther._id.toString()){
+                throw new Error('没有权限');
+            }
+
+            postModel.delPostById(postId)
+                .then(()=>{
+                    req.flash('success', '删除文章成功');
+                    //删除成功跳转到主页
+                    res.redirect('/posts');
+                })
+                .catch(next);
+        });
 });
 
 module.exports = router;
