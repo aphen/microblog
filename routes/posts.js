@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const postModel = require('../models/posts');
+const CommentModel = require('../models/comments');
 const checkLogin = require('../middlewares/check').checkLogin;
 
 //Get /posts 所有用户或特定用户的文章页
@@ -71,15 +72,18 @@ router.get('/:postId', checkLogin, (req, res, next) => {
 
     Promise.all([
         postModel.getPostById(postId), //获取文章信息
+        CommentModel.getComments(postId), //获取该文章下的所有留言
         postModel.incPv(postId) //pv加1
     ])
         .then(function(result){
             const post = result[0];
+            const comments = result[1];
             if(!post){
                 throw new Error('该文章不存在');
             }
             res.render('post', {
-                post: post
+                post: post,
+                comments: comments
             });
         })
         .catch(next);
@@ -130,10 +134,11 @@ router.post('/:postId/edit', checkLogin, (req, res, next) => {
 
     postModel.getRawPostById(postId)
         .then((post)=>{
+            console.log(post.author._id, 'xxxxxx');
             if(!post){
                 throw new Error('文章不存在');
             }
-            if(auther.toString()!==post.auther._id.toString()){
+            if(auther.toString()!==post.author._id.toString()){
                 throw new Error('没有权限');
             }
 
@@ -157,7 +162,7 @@ router.get('/:postId/remove', checkLogin, (req, res, next) => {
             if(!post){
                 throw new Error('文章不存在');
             }
-            if(auther.toString()!==post.auther._id.toString()){
+            if(auther.toString()!==post.author._id.toString()){
                 throw new Error('没有权限');
             }
 

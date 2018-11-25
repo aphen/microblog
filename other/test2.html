@@ -1,0 +1,234 @@
+<!DOC html>
+<html>
+
+<head>
+<title>我的第一个 HTML 页面</title>
+<style>
+html{ -ms-text-size-adjust:100%; -webkit-text-size-adjust:100%;}
+ul,li,div,p,body{ margin:0; padding:0; text-align:left;}
+body, html{ 
+    background:#001424;
+    text-align: left;
+    height: 100%;
+    width: 100%;
+    font-size:62.5%;
+    font-weight: normal;
+}
+
+@keyframes star_ani_00{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 1;
+    }   
+}
+
+@keyframes star_ani_05{
+    0%,100%{
+        transform: translateX(0rem);
+    }
+    50%{
+        transform: translateX(-26.5rem);
+    }
+}
+@keyframes star_ani_06{
+    0%,100%{
+        transform: translateY(0rem) scale(0.5);
+    }    
+    50%{
+        transform: translateY(8rem) scale(1);
+    }
+}
+@keyframes star_ani_07{
+    0%,100%{
+        transform: translateY(0rem) scale(0.5) rotate3d(0, 0,1, 210deg);
+    }    
+    50%{
+        transform: translateY(8rem) scale(1) rotate3d(0, 0,1, 0deg);
+    }
+    99.9%{
+        transform: translateY(0rem) scale(0.5) rotate3d(0, 0,1, -150deg);
+    }
+}
+.main{
+    position: relative;
+    height:100%;
+}
+.wrap-icon{
+    position:absolute;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    left:50%;
+    top: 12%;
+    z-index: 2;
+    opacity: 1;
+}
+ 
+.wrap-icon1{
+    width: 2.7rem;
+    height: 2.7rem;
+    margin-left: 12.4rem;
+    margin-top: 9rem;
+    /* margin-left:-5.5rem;
+    margin-top: 28rem; */
+    /* -webkit-animation:star_ani_00 0.5s 4s linear forwards; */
+    animation:star_ani_00 0.5s 2.5s linear forwards;
+}
+.wrap-icon1 span{
+    width:2.7rem;
+    height:2.7rem;
+    
+    display: block;
+    /* -webkit-animation:star_ani_05 16s 0s ease-in-out infinite; */
+    animation:star_ani_05 10s -7.5s ease-in-out infinite;
+}
+.wrap-icon1 i{
+    width: 2rem;
+    height:2rem;
+    
+    border-radius:2.5rem;
+    display: block;
+    background:#f00;
+    background-size: 100% 100%;
+    transform: scale(0.5);
+    /* -webkit-animation:star_ani_06 16s 4s ease-in-out infinite; */
+    animation:star_ani_06 10s -5s ease-in-out infinite;
+}
+ 
+.wrap-icon2{
+    width: 2.7rem;
+    height: 2.7rem;
+    /* margin-left: 17.8rem;
+    margin-top: 8rem; */
+     margin-left: 12.4rem;
+    margin-top: 9rem;
+    /* -webkit-animation:star_ani_00 0.5s 5s linear forwards; */
+    animation:star_ani_00 0.5s 2.5s linear forwards;
+}
+.wrap-icon2 span{
+    width:2.7rem;
+    height:2.7rem;
+    display: block;
+    /* -webkit-animation:star_ani_05 10s -2.5s ease-in-out infinite; */
+    animation:star_ani_05 10s -11s ease-in-out infinite;
+}
+.wrap-icon2 i{
+    width:1.5rem;
+    height:1.5rem;
+    border-radius:1.5rem;
+    display: block;
+    background:#ff0;
+    background-size: 100% 100%;
+    transform: scale(0.5);
+    /* -webkit-animation:star_ani_06 10s 0s ease-in-out infinite; */
+    animation:star_ani_06 10s -8.5s ease-in-out infinite;
+}
+ 
+ 
+.wrap-icon3{
+    width: 2.7rem;
+    height: 2.7rem;
+    margin-left: 12.4rem;
+    margin-top: 9rem;
+    /* -webkit-animation:star_ani_00 0.5s 2.5s linear forwards; */
+    /* animation:star_ani_00 0.5s 4.5s linear forwards; */
+}
+.wrap-icon3 span{
+    width:2.7rem;
+    height:2.7rem;
+
+    display: block;
+    /* -webkit-animation:star_ani_05 16s 0s ease-in-out infinite; */
+    animation:star_ani_05 10s -4.5s ease-in-out infinite;
+}
+.wrap-icon3 i{
+    width:2rem;
+    height:2rem;
+    border-radius:1rem;
+    display: block;
+    background:#060;
+    background-size: 100% 100%;
+    transform: scale(0.5) rotate3d(0, 0,1, 210deg);
+    /* -webkit-animation:star_ani_06 16s 4s ease-in-out infinite; */
+    animation:star_ani_06 10s -2s ease-in-out infinite;
+}
+
+
+.wrap-icon4{
+    width: 2.7rem;
+    height: 2.7rem;
+    margin-left: 12.4rem;
+    margin-top: 9rem;
+    /* -webkit-animation:star_ani_00 0.5s 2.5s linear forwards; */
+    /* animation:star_ani_00 0.5s 4.5s linear forwards; */
+}
+.wrap-icon4 span{
+    width:2.7rem;
+    height:2.7rem;
+
+    display: block;
+    /* -webkit-animation:star_ani_05 16s 0s ease-in-out infinite; */
+    animation:star_ani_05 10s -2.5s ease-in-out infinite;
+}
+.wrap-icon4 i{
+    width:2rem;
+    height:2rem;
+    border-radius:1rem;
+    display: block;
+    background:#060;
+    background-size: 100% 100%;
+    transform: scale(0.5) rotate3d(0, 0,1, 210deg);
+    /* -webkit-animation:star_ani_06 16s 4s ease-in-out infinite; */
+    animation:star_ani_07 10s -0s ease-in-out infinite;
+}
+
+.wrap-bg{
+    width:28rem;
+    height:28rem;
+    position: absolute;
+    top:12%;
+    left:50%;
+    margin-left:-14rem;
+    border:0.1rem solid #aaa;
+    border-radius:28rem;
+    -webkit-transform:scale3d(1,0.3,1);
+    transform:scale3d(1,0.3,1);
+}
+
+
+
+</style>
+</head>
+
+<body>
+    <div class="ball">1</div>
+<div class="box">
+    <div class="wrap-bg"></div>
+    <div class="wrap-bg2"></div>
+     
+    <div class="wrap-bg3">
+        <span></span>
+    </div>
+     
+    <div class="wrap-icon wrap-icon1">
+        <span><i></i></span>
+    </div>
+ 
+    <div class="wrap-icon wrap-icon2">
+        <span><i></i></span>
+    </div>
+ 
+    <div class="wrap-icon wrap-icon3">
+        <span><i></i></span>
+    </div>
+    <div class="wrap-icon wrap-icon4">
+            <span><i><img src="1.jpg" width="24"></i></span>
+    </div>
+ 
+    <div class="wrap-sun"></div>
+ 
+</div>
+</body>
+
+</html>
