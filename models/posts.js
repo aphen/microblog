@@ -15,7 +15,7 @@ Post.plugin('addCommentsCount', {
     },
     afterFindOne: (post)=>{
         if(post){
-            return CommentModel.getCommentsCount(post._id).then((count){
+            return CommentModel.getCommentsCount(post._id).then((count)=>{
                post.commentsCount = count;
                return post;
             });
@@ -51,6 +51,7 @@ module.exports = {
             .findOne({_id: postId})
             .populate({path: 'author', model: 'User'})
             .addCreateAt()
+            .addCommentsCount()
             .contentToHtml()
             .exec();
     },
@@ -65,6 +66,7 @@ module.exports = {
             .populate({path: 'author', model: 'User'})
             .sort({_id: -1})
             .addCreateAt()
+            .addCommentsCount()
             .contentToHtml()
             .exec();
     },
@@ -87,6 +89,8 @@ module.exports = {
     },
     //通过文章id删除一篇文章
     delPostById: (postId, author)=>{
+        console.log(author, 'DKDDKKD');
+
         return Post.deleteOne({author: author, _id: postId}).exec()
             .then((res)=>{
                 //文章删除后，再删除该文章下的所有留言

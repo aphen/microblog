@@ -134,7 +134,6 @@ router.post('/:postId/edit', checkLogin, (req, res, next) => {
 
     postModel.getRawPostById(postId)
         .then((post)=>{
-            console.log(post.author._id, 'xxxxxx');
             if(!post){
                 throw new Error('文章不存在');
             }
@@ -155,18 +154,18 @@ router.post('/:postId/edit', checkLogin, (req, res, next) => {
 router.get('/:postId/remove', checkLogin, (req, res, next) => {
     //res.send('删除文章');
     const postId = req.params.postId;
-    const auther = req.session.user._id;
-
+    const author = req.session.user._id;
+    console.log(author, 'author');
     postModel.getRawPostById(postId)
         .then((post)=>{
             if(!post){
                 throw new Error('文章不存在');
             }
-            if(auther.toString()!==post.author._id.toString()){
+            if(author.toString()!==post.author._id.toString()){
                 throw new Error('没有权限');
             }
 
-            postModel.delPostById(postId)
+            postModel.delPostById(postId, author)
                 .then(()=>{
                     req.flash('success', '删除文章成功');
                     //删除成功跳转到主页
