@@ -4,7 +4,9 @@
   "description": "my first blog",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env NODE_ENV=production pm2 start index.js --name 'myblog'",
+    "heroku": "NODE_ENV=production node index"
   },
   "author": "",
   "license": "ISC",

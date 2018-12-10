@@ -93,6 +93,10 @@ app.use(function (err, req, res, next) {
     res.redirect('/posts')
   })
 
-app.listen(config.port, () => {
-    console.log(`${pkg.name} listening on port ${config.port}`);
-});
+const port = process.env.PORT || config.port
+app.listen(port, function () {
+  console.log(`${pkg.name} listening on port ${port}`)
+})
+// app.listen(config.port, () => {
+//     console.log(`${pkg.name} listening on port ${config.port}`);
+// });
